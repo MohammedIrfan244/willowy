@@ -398,11 +398,23 @@ const Employee = () => {
 
             <div className="col-span-1 md:col-span-2 flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
               <button
+              disabled={createMutation.isPending || updateMutation.isPending}
                 type="submit"
                 className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
               >
-                <FiSave className="h-4 w-4" />
+                {
+                  createMutation.isPending || updateMutation.isPending?(
+                    <>
+                    <FiLoader className="h-4 animate-spin w-4" />
+                {editingId ? 'Updating...' : 'Creating...'}
+                    </>
+                  ):(
+                    <>
+                    <FiSave className="h-4 w-4" />
                 {editingId ? 'Update Employee' : 'Add Employee'}
+                    </>
+                  )
+                }
               </button>
               {editingId && (
                 <button

@@ -4,9 +4,9 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const employeeSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters long").max(20, "Name must be at most 20 characters long"),
-    gender: z.string().min(3).max(20),
-    dob: z.string().length(10),
-    address: z.string().min(3).max(25),
+    gender: z.string().min(3, "Gender must be at least 3 characters long").max(20, "Gender must be at most 20 characters long"),
+    dob: z.string().length(10, "Date of birth must be in the format YYYY-MM-DD"),
+    address: z.string().min(3, "Address must be at least 3 characters long").max(50, "Address must be at most 50 characters long"),
     mobile: z.string().refine((value) => {
     try {
         const phoneNumber = parsePhoneNumberFromString(value);
