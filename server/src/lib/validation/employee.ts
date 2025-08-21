@@ -8,13 +8,17 @@ const employeeSchema = z.object({
     dob: z.string().length(10),
     address: z.string().min(3).max(25),
     mobile: z.string().refine((value) => {
-        try{
-            const phoneNumber = parsePhoneNumberFromString(value);
-            return phoneNumber && phoneNumber.isValid();
-        }catch(err){
-            return false
+    try {
+        const phoneNumber = parsePhoneNumberFromString(value);
+        if (phoneNumber) {
+            return phoneNumber.isValid();
         }
-    }, "Invalid mobile number"),
+        return false;
+    } catch (err) {
+        console.error("Validation error:", err);
+        return false;
+    }
+}, "Invalid mobile number"),
     email: z.string().email("Invalid email address"),
     department: z.string().min(3).max(25),
     designation: z.string().min(3).max(25),

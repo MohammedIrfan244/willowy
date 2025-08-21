@@ -5,6 +5,7 @@ const tryCatch = <T>(fn:(req:Request,res:Response,next:NextFunction)=>Promise<T>
         try{
            await fn(req,res,next)
         }catch(err){
+            console.log("full err",err)
             next(err)
         }
     }
