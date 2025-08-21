@@ -245,7 +245,7 @@ const Employee = () => {
                   id="dob"
                   type="date"
                   name="dob"
-                  min={isAdult()}
+                  max={isAdult()}
                   placeholder="Date of Birth"
                   value={formData.dob}
                   onChange={handleInputChange}
