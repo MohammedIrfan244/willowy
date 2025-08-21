@@ -28,6 +28,7 @@ export const createEmployee = async (employee: IEmployee) => {
     alert(res.data.message);
     return res.data;
   } catch (err) {
+    alert(axiosError(err));
     throw new Error(axiosError(err));
   }
 };
@@ -50,6 +51,7 @@ export const updateEmployee = async (id: string, employee: IEmployee) => {
     alert(res.data.message);
     return res.data;
   } catch (err) {
+    alert(axiosError(err))
     throw new Error(axiosError(err));
   }
 };
@@ -61,6 +63,7 @@ export const deleteEmployee = async (id: string) => {
     alert(res.data.message);
     return res.data;
   } catch (err) {
+    alert(axiosError(err))
     throw new Error(axiosError(err));
   }
 };

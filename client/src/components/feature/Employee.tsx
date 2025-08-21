@@ -203,9 +203,11 @@ const Employee = () => {
           </div>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1">
+              <label htmlFor="name" className="block text-gray-700 text-xs sm:text-sm font-medium">Full Name</label>
               <div className="relative">
                 <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   placeholder="Full Name"
@@ -216,11 +218,13 @@ const Employee = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-1">
+              <label htmlFor="gender" className="block text-gray-700 text-xs sm:text-sm font-medium">Gender</label>
               <div className="relative">
                 <FiUserCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="gender"
                   type="text"
                   name="gender"
                   placeholder="Gender"
@@ -231,11 +235,13 @@ const Employee = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-1">
+              <label htmlFor="dob" className="block text-gray-700 text-xs sm:text-sm font-medium">Date of Birth</label>
               <div className="relative">
                 <FiCalendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="dob"
                   type="date"
                   name="dob"
                   placeholder="Date of Birth"
@@ -246,11 +252,13 @@ const Employee = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-1">
+              <label htmlFor="address" className="block text-gray-700 text-xs sm:text-sm font-medium">Address</label>
               <div className="relative">
                 <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="address"
                   type="text"
                   name="address"
                   placeholder="Address"
@@ -261,8 +269,9 @@ const Employee = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-1">
+              <label htmlFor="mobile" className="block text-gray-700 text-xs sm:text-sm font-medium">Mobile Number</label>
               <div className="relative">
                 <FiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
                 <PhoneInput
@@ -272,6 +281,7 @@ const Employee = () => {
                   inputProps={{
                     name: 'mobile',
                     required: true,
+                    id: 'mobile',
                   }}
                   inputStyle={{
                     width: '100%',
@@ -291,11 +301,13 @@ const Employee = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-1">
+              <label htmlFor="email" className="block text-gray-700 text-xs sm:text-sm font-medium">Email Address</label>
               <div className="relative">
                 <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   placeholder="Email Address"
@@ -308,9 +320,11 @@ const Employee = () => {
             </div>
 
             <div className="space-y-1">
+              <label htmlFor="department" className="block text-gray-700 text-xs sm:text-sm font-medium">Department</label>
               <div className="relative">
                 <HiOutlineOfficeBuilding className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <select
+                  id="department"
                   name="department"
                   value={formData.department}
                   onChange={handleDepartmentChange}
@@ -328,9 +342,11 @@ const Employee = () => {
             </div>
 
             <div className="space-y-1">
+              <label htmlFor="designation" className="block text-gray-700 text-xs sm:text-sm font-medium">Designation</label>
               <div className="relative">
                 <FiBriefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <select
+                  id="designation"
                   name="designation"
                   value={formData.designation}
                   onChange={handleInputChange}
@@ -349,9 +365,11 @@ const Employee = () => {
             </div>
 
             <div className="space-y-1">
+              <label htmlFor="doj" className="block text-gray-700 text-xs sm:text-sm font-medium">Date of Joining</label>
               <div className="relative">
                 <FiCalendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="doj"
                   type="date"
                   name="doj"
                   placeholder="Date of Joining"
@@ -364,9 +382,11 @@ const Employee = () => {
             </div>
 
             <div className="space-y-1">
+              <label htmlFor="profile" className="block text-gray-700 text-xs sm:text-sm font-medium">Profile Picture</label>
               <div className="relative">
                 <FiUpload className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
+                  id="profile"
                   type="file"
                   name="profile"
                   onChange={handleFileChange}
@@ -398,7 +418,7 @@ const Employee = () => {
           </form>
         </div>
 
-        {/* listing */}
+        {/* lsiting empl here */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="px-8 py-6 border-b border-gray-200">
             <div className="flex items-center gap-3">
@@ -443,7 +463,7 @@ const Employee = () => {
                           alt="Profile" 
                           width={48} 
                           height={48} 
-                          className="rounded-full object-cover ring-2 ring-gray-200" 
+                          className="rounded-full w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 ring-2 ring-gray-200" 
                         />
                       </td>
                       <td className="px-8 py-6 text-sm font-medium text-gray-900">{employee.name}</td>
