@@ -36,6 +36,7 @@ import {
   FiUserCheck
 } from 'react-icons/fi';
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import isAdult from '@/lib/util/isAdult';
 
 const initialEmployeeState: IEmployee = {
   name: '',
@@ -244,6 +245,7 @@ const Employee = () => {
                   id="dob"
                   type="date"
                   name="dob"
+                  min={isAdult()}
                   placeholder="Date of Birth"
                   value={formData.dob}
                   onChange={handleInputChange}
