@@ -80,10 +80,23 @@ const deleteEmployee = async(req:Request, res:Response,next : NextFunction )=>{
 }
 
 const getAllEmployees = async(req:Request, res:Response,next : NextFunction )=>{
-    const employees = await Employee.find()
+    const employees = await Employee.find().populate({path:"department",select:"name"}).populate({path:"designation",select:"name"})
     if(employees.length === 0) res.status(200).json({message:"No employees found",employees:[]})
    
-    return res.status(200).json({ message: "Employees found", employees });
+        const formattedEmployees = employees.map(employee => ({
+            _id:employee._id,
+            name: employee.name,
+            gender: employee.gender,
+            dob: employee.dob,
+            address: employee.address,
+            mobile: employee.mobile,
+            email: employee.email,
+            department: typeof employee.department === 'object' && employee.department !== null && 'name' in employee.department ? (employee.department as any).name : employee.department,
+            designation: typeof employee.designation === 'object' && employee.designation !== null && 'name' in employee.designation ? (employee.designation as any).name : employee.designation,
+            doj: employee.doj,
+            profile: employee.profile
+        }))
+    return res.status(200).json({ message: "Employees found", employees: formattedEmployees });
 }
 
 const getEmployee = async(req:Request, res:Response,next : NextFunction )=>{
@@ -92,6 +105,7 @@ const getEmployee = async(req:Request, res:Response,next : NextFunction )=>{
 
     if(!employee) return next(new CustomError("Employee not found",404))
         const formattedEmployee = {
+    _id:employee._id,
             name: employee.name,
             gender: employee.gender,
             dob: employee.dob,
