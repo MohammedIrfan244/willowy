@@ -18,6 +18,24 @@ import {
   IEmployeePayload,
 } from '@/lib/util/type';
 import Image from 'next/image';
+import { 
+  FiUsers, 
+  FiUserPlus, 
+  FiEdit3, 
+  FiTrash2, 
+  FiSave, 
+  FiX, 
+  FiUser, 
+  FiMail, 
+  FiPhone, 
+  FiMapPin, 
+  FiCalendar,
+  FiBriefcase,
+  FiUpload,
+  FiLoader,
+  FiUserCheck
+} from 'react-icons/fi';
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const initialEmployeeState: IEmployee = {
   name: '',
@@ -145,141 +163,234 @@ const Employee = () => {
     setSelectedDepartmentId('');
   };
 
-  if (employeesLoading) return <div>Loading employees...</div>;
-  if (departmentsLoading) return <div>Loading departments...</div>;
+  if (employeesLoading) return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center gap-3 text-lg text-gray-600">
+        <FiLoader className="animate-spin" />
+        Loading employees...
+      </div>
+    </div>
+  );
+  if (departmentsLoading) return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center gap-3 text-lg text-gray-600">
+        <FiLoader className="animate-spin" />
+        Loading departments...
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-white p-8">
-      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-6">
-        <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">Employee Management</h1>
-              {/* form area here */}
-        <div className="bg-blue-50 p-6 rounded-lg mb-8">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-4">{editingId ? 'Update Employee' : 'Add Employee'}</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="text"
-              name="gender"
-              placeholder="Gender"
-              value={formData.gender}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="date"
-              name="dob"
-              placeholder="Date of Birth (YYYY-MM-DD)"
-              value={formData.dob}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="text"
-              name="address"
-              placeholder="Address"
-              value={formData.address}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
-            <PhoneInput
-              country={'us'}
-              value={formData.mobile.replace('+', '')}
-              onChange={handlePhoneChange}
-              inputProps={{
-                name: 'mobile',
-                required: true,
-              }}
-              inputStyle={{
-                width: '100%',
-                padding: '0.5rem',
-                border: '1px solid #93c5fd', // blue-300
-                borderRadius: '0.25rem',
-                outline: 'none',
-              }}
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center mb-4">
+            <div className="p-3 bg-blue-100 rounded-full">
+              <FiUsers className="h-8 w-8 text-blue-600" />
+            </div>
+          </div>
+          <h1 className="text-3xl font-light text-gray-900 tracking-tight">Employee Management</h1>
+          <p className="mt-2 text-sm text-gray-600">Manage your team efficiently</p>
+        </div>
+        
+        {/* form area here */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              {editingId ? <FiEdit3 className="h-5 w-5 text-blue-600" /> : <FiUserPlus className="h-5 w-5 text-blue-600" />}
+            </div>
+            <h2 className="text-xl font-medium text-gray-900">{editingId ? 'Update Employee' : 'Add New Employee'}</h2>
+          </div>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <div className="relative">
+                <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="relative">
+                <FiUserCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  name="gender"
+                  placeholder="Gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="relative">
+                <FiCalendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="date"
+                  name="dob"
+                  placeholder="Date of Birth"
+                  value={formData.dob}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="relative">
+                <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="relative">
+                <FiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
+                <PhoneInput
+                  country={'us'}
+                  value={formData.mobile.replace('+', '')}
+                  onChange={handlePhoneChange}
+                  inputProps={{
+                    name: 'mobile',
+                    required: true,
+                  }}
+                  inputStyle={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    paddingLeft: '44px',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '8px',
+                    outline: 'none',
+                    fontSize: '16px',
+                    transition: 'all 0.2s',
+                  }}
+                  buttonStyle={{
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '8px 0 0 8px',
+                    backgroundColor: '#f9fafb',
+                  }}
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="relative">
+                <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                />
+              </div>
+            </div>
 
-            <select
-              name="department"
-              value={formData.department}
-              onChange={handleDepartmentChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            >
-              <option value="">Select Department</option>
-              {departments?.map((dept) => (
-                <option key={dept._id} value={dept._id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+            <div className="space-y-1">
+              <div className="relative">
+                <HiOutlineOfficeBuilding className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleDepartmentChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 bg-white appearance-none"
+                >
+                  <option value="">Select Department</option>
+                  {departments?.map((dept) => (
+                    <option key={dept._id} value={dept._id}>
+                      {dept.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-            <select
-              name="designation"
-              value={formData.designation}
-              onChange={handleInputChange}
-              disabled={!selectedDepartmentId}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500 disabled:bg-gray-200"
-            >
-              <option value="">Select Designation</option>
-              {designations?.map((desig) => (
-                <option key={desig._id} value={desig._id}>
-                  {desig.name}
-                </option>
-              ))}
-            </select>
+            <div className="space-y-1">
+              <div className="relative">
+                <FiBriefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <select
+                  name="designation"
+                  value={formData.designation}
+                  onChange={handleInputChange}
+                  disabled={!selectedDepartmentId}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 bg-white disabled:bg-gray-50 disabled:text-gray-400 appearance-none"
+                >
+                  <option value="">Select Designation</option>
+                  {designations?.map((desig) => (
+                    <option key={desig._id} value={desig._id}>
+                      {desig.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-            <input
-              type="date"
-              name="doj"
-              placeholder="Date of Joining (YYYY-MM-DD)"
-              value={formData.doj}
-              onChange={handleInputChange}
-              required
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500"
-            />
+            <div className="space-y-1">
+              <div className="relative">
+                <FiCalendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="date"
+                  name="doj"
+                  placeholder="Date of Joining"
+                  value={formData.doj}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900"
+                />
+              </div>
+            </div>
 
-            <input
-              type="file"
-              name="profile"
-              onChange={handleFileChange}
-              required={!editingId}
-              className="p-2 border border-blue-300 rounded focus:outline-none focus:border-blue-500 col-span-1 md:col-span-2"
-            />
+            <div className="space-y-1">
+              <div className="relative">
+                <FiUpload className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="file"
+                  name="profile"
+                  onChange={handleFileChange}
+                  required={!editingId}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+              </div>
+            </div>
 
-            <div className="col-span-1 md:col-span-2 flex justify-end gap-4 mt-4">
+            <div className="col-span-1 md:col-span-2 flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
               <button
                 type="submit"
-                className="bg-blue-800 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
               >
-                {editingId ? 'Update' : 'Add'}
+                <FiSave className="h-4 w-4" />
+                {editingId ? 'Update Employee' : 'Add Employee'}
               </button>
               {editingId && (
                 <button
                   type="button"
                   onClick={handleCancelEdit}
-                  className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
+                  className="flex items-center gap-2 px-6 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
                 >
+                  <FiX className="h-4 w-4" />
                   Cancel
                 </button>
               )}
@@ -287,45 +398,74 @@ const Employee = () => {
           </form>
         </div>
 
-        {/* lsiting */}
-        <div className="bg-white p-6 rounded-lg">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-4">Employee List</h2>
+        {/* listing */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-200">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-green-50 rounded-lg">
+                <FiUsers className="h-5 w-5 text-green-600" />
+              </div>
+              <div>
+                <h2 className="text-xl font-medium text-gray-900">Employee Directory</h2>
+                <p className="mt-1 text-sm text-gray-600">{employees?.length || 0} employees total</p>
+              </div>
+            </div>
+          </div>
+          
           {employees?.length === 0 ? (
-            <div className="text-center text-gray-500">No employees found.</div>
+            <div className="text-center py-16">
+              <div className="flex items-center justify-center mb-4">
+                <div className="p-4 bg-gray-100 rounded-full">
+                  <FiUsers className="h-8 w-8 text-gray-400" />
+                </div>
+              </div>
+              <div className="text-gray-400 text-lg">No employees found</div>
+              <p className="text-gray-500 text-sm mt-2">Add your first employee to get started</p>
+            </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full bg-white border border-blue-300 rounded-lg">
-                <thead className="bg-blue-800 text-white">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th className="py-3 px-6 text-left">Profile</th>
-                    <th className="py-3 px-6 text-left">Name</th>
-                    <th className="py-3 px-6 text-left">Department</th>
-                    <th className="py-3 px-6 text-left">Designation</th>
-                    <th className="py-3 px-6 text-left">Actions</th>
+                    <th className="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
+                    <th className="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th className="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                    <th className="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
+                    <th className="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {employees?.map((employee) => (
-                    <tr key={employee._id} className="border-b border-blue-200 hover:bg-blue-50 transition-colors">
-                      <td className="py-4 px-6">
-                        <Image src={employee.profile} alt="Profile" width={100} height={100} className="rounded-full" />
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {employees?.map((employee, index) => (
+                    <tr key={employee._id} className={`hover:bg-gray-50 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
+                      <td className="px-8 py-6">
+                        <Image 
+                          src={employee.profile} 
+                          alt="Profile" 
+                          width={48} 
+                          height={48} 
+                          className="rounded-full object-cover ring-2 ring-gray-200" 
+                        />
                       </td>
-                      <td className="py-4 px-6">{employee.name}</td>
-                      <td className="py-4 px-6">{employee.department}</td>
-                      <td className="py-4 px-6">{employee.designation}</td>
-                      <td className="py-4 px-6">
-                        <button
-                          onClick={() => handleEdit(employee)}
-                          className="bg-blue-300 text-blue-800 font-semibold py-1 px-3 rounded mr-2 hover:bg-blue-400 transition-colors"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(employee._id)}
-                          className="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition-colors"
-                        >
-                          Delete
-                        </button>
+                      <td className="px-8 py-6 text-sm font-medium text-gray-900">{employee.name}</td>
+                      <td className="px-8 py-6 text-sm text-gray-600">{employee.department}</td>
+                      <td className="px-8 py-6 text-sm text-gray-600">{employee.designation}</td>
+                      <td className="px-8 py-6">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleEdit(employee)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                          >
+                            <FiEdit3 className="h-3 w-3" />
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(employee._id)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-700 bg-red-50 rounded-md hover:bg-red-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                          >
+                            <FiTrash2 className="h-3 w-3" />
+                            Delete
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
